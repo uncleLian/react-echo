@@ -1,0 +1,25 @@
+.cover-img {
+    display: inline-block;
+    width: toRem(36);
+    height: toRem(36);
+    overflow: hidden;
+    border: 1px solid #fff;
+    box-shadow: 0 0 toRem(2) rgba(0, 0, 0, 0.2);
+    img {
+        display: block;
+        width: 100%;
+    }
+}
+.cover-detail {
+    flex: 1;
+    font-size: toRem(12);
+    padding: 0 toRem(8);
+    overflow: hidden;
+    .detail-name {
+        text-ellipsis();
+    }
+    .detail-author {
+        text-ellipsis();
+        margin-top: toRem(5);
+    }
+}

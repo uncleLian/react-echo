@@ -1,0 +1,36 @@
+$controlHeight = toRem(60);
+$progressBarHeight = toRem(15);
+.progress-bar-container {
+    position: absolute;
+    bottom: $controlHeight;
+    left: 0;
+    right: 0;
+    height: $progressBarHeight;
+    color: #fff;
+    font-size: toRem(12);
+    background: rgba(0, 0, 0, 0.2);
+    .progress-time {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        line-height: 1;
+        margin-left: toRem(10);
+    }
+    .progress-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgba($appColorRGB, 0.2);
+        &:after {
+            content: '';
+            display: inline-block;
+            width: toRem(6);
+            height: 100%;
+            background: $appColor;
+            position: absolute;
+            top: 0;
+            right: toRem(-6);
+        }
+    }
+}

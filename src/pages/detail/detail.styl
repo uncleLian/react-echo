@@ -1,0 +1,222 @@
+$coverHeight = toRem(375);
+$controlHeight = toRem(60);
+$progressBarHeight = toRem(15);
+$danmuHeight = $coverHeight - $controlHeight - $progressBarHeight;
+#detail {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    .detail-author {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: toRem(55);
+        background: #fbfbfb;
+        padding: 0 toRem(15);
+        color: $normalColor;
+        .author-left {
+            display: flex;
+            align-items: center;
+            max-width: 70%;
+            .author-avatar {
+                position: relative;
+                .author-img {
+                    display: block;
+                    min-width: toRem(36);
+                    width: toRem(36);
+                    height: toRem(36);
+                    border-radius: 100%;
+                    overflow: hidden;
+                }
+                .author-vip {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: toRem(14);
+                    height: toRem(14);
+                    border-radius: 100%;
+                    z-index: 10;
+                }
+            }
+            .author-name {
+                margin-left: toRem(10);
+                font-size: toRem(14);
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+        .author-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            max-width: 30%;
+            font-size: toRem(12);
+            .right-item {
+                flex-center();
+                .item-label {
+                    white-space: nowrap;
+                }
+                .item-value {
+                    color: $deepColor;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    margin-left: toRem(6);
+                }
+            }
+        }
+    }
+    .detail-cover {
+        width: 100%;
+        height: $coverHeight;
+        position: relative;
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .cover-danmu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: $danmuHeight;
+        }
+        .control {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: $controlHeight;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0 toRem(12);
+            .control-info {
+                display: flex;
+                flex-direction: column;
+                max-width: 80%;
+                color: #fff;
+                font-size: toRem(12);
+                .info-name {
+                    font-size: toRem(14);
+                    margin-bottom: toRem(6);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                .info-source {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    .info-label {
+                        margin: 0 toRem(4);
+                        white-space: nowrap;
+                    }
+                    .info-author {
+                        max-width: 50%;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .info-channel {
+                        max-width: 50%;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+    .detail-info {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: toRem(50);
+        padding: 0 toRem(16);
+        background: #fff;
+        border-bottom: 1px solid $borderColor;
+        .info-left {
+            display: flex;
+            align-items: center;
+            max-width: 70%;
+            .left-item {
+                display: flex;
+                align-items: center;
+                color: $infoColor;
+                font-size: toRem(12);
+                line-height: 1;
+                padding-right: toRem(12);
+                white-space: nowrap;
+                &:last-child {
+                    margin-right: 0;
+                }
+                .item-icon {
+                    margin-right: toRem(5);
+                }
+                .item-value {
+                    text-ellipsis();
+                }
+            }
+        }
+        .info-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            .right-item {
+                flex-center();
+                color: $linkColor;
+                white-space: nowrap;
+                .item-icon {
+                    font-size: toRem(22);
+                    margin-right: toRem(5);
+                    transform: rotate(-15deg);
+                }
+                .item-label {
+                    font-size: toRem(12);
+                }
+            }
+        }
+    }
+    .detail-lyric {
+        font-size: toRem(14);
+        line-height: 1.5em;
+        white-space: pre-wrap;
+        padding: toRem(15) toRem(16) toRem(30);
+        margin-bottom: toRem(10);
+        background: #fff;
+        .noLyric {
+            text-align: center;
+            color: #999;
+        }
+        p {
+            line-height: 1;
+        }
+    }
+    .detail-other {
+        position: relative;
+        width: 100%;
+        background: #fff;
+        .other-title {
+            padding: toRem(12) 0 toRem(20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .title-label {
+                color: $appColor;
+                font-size: toRem(14);
+                text-align: center;
+                border-bottom: 1px solid $appColor;
+                padding: toRem(6) toRem(10);
+            }
+        }
+        .other-recommend {
+            position: relative;
+            width: 100%;
+        }
+    }
+}
