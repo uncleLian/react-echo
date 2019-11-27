@@ -3,9 +3,12 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from './reducers.js'
 
+const composeEnhancers = composeWithDevTools({
+    shouldHotReload: false
+})
 let store = createStore(
     reducers,
-    composeWithDevTools(
+    composeEnhancers(
         applyMiddleware(thunk)
     )
 )

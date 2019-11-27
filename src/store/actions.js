@@ -13,6 +13,12 @@ export function setAudioProgress(data) {
 export function setPlayList(data) {
     return { type: 'SET_PLAY_LIST', data }
 }
+export function addPlayList(data) {
+    return { type: 'ADD_PLAY_LIST', data }
+}
+export function deletePlayList(data) {
+    return { type: 'DELETE_PLAY_LIST', data }
+}
 export function setPlayMode(data) {
     return { type: 'SET_PLAY_MODE', data }
 }

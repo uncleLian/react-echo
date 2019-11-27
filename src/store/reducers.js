@@ -21,11 +21,6 @@ let reducers = {
     audio_data: (state = defaultState.audio_data, action) => {
         switch (action.type) {
             case 'SET_AUDIO_DATA':
-                // 音乐不存在则添加到播放列表
-                const isHas = defaultState.playList.find((n) => n.sound.id === action.data.sound.id)
-                if (!isHas) {
-                    defaultState.playList.unshift(action.data)
-                }
                 return action.data
             default:
                 return state
@@ -48,9 +43,26 @@ let reducers = {
         }
     },
     playList: (state = defaultState.playList, action) => {
+        // console.log('playList state', state)
         switch (action.type) {
             case 'SET_PLAY_LIST':
                 return action.data
+            case 'ADD_PLAY_LIST':
+                // 添加播放列表（判断是否存在）
+                const isHas = state.find((n) => n.sound.id === action.data.sound.id)
+                if (!isHas) {
+                    state.unshift(action.data)
+                }
+                return state
+            case 'DELETE_PLAY_LIST':
+                // 删除某项列表
+                const index = state.findIndex((n) => n.sound.id === action.data.sound.id)
+                let data = state
+                if (index > -1) {
+                    state.splice(index, 1)
+                    data = [...state]
+                }
+                return data
             default:
                 return state
         }

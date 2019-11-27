@@ -7,6 +7,7 @@ import { getBanner, getList } from '@/api'
 
 export default class Index extends React.Component {
     render() {
+        console.log('index render')
         return (
             <div id="index">
                 <MusicBanner json={this.state.bannerJson} />
@@ -31,8 +32,7 @@ export default class Index extends React.Component {
             bannerJson: [],
             listJson: [],
             page: 1,
-            loading: false,
-            lock: false
+            loading: false
         }
     }
     componentDidMount() {

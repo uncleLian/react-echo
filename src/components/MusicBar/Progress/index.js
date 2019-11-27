@@ -1,6 +1,5 @@
 import React from 'react'
-import './progress.styl'
-
+import './index.styl'
 import { connect } from 'react-redux'
 
 // 进度条

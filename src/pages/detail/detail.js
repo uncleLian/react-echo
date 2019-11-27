@@ -1,15 +1,17 @@
 import React from 'react'
 import './detail.styl'
+
 import MusicList from '@/components/MusicList'
-import ControlBar from '@/pages/detail/components/ControlBar'
-import ProgressBar from '@/pages/detail/components/ProgressBar'
+import ControlBar from './ControlBar'
+import ProgressBar from './ProgressBar'
 import { getDetail, getOther } from '@/api'
 import { connect } from 'react-redux'
-import { setAudioData } from '@/store/actions.js'
+import { setAudioData, addPlayList } from '@/store/actions.js'
 
 class Detail extends React.Component {
     render() {
-        let audio_data = this.state.musicJson
+        console.log('Detail render')
+        const { audio_data } = this.props
         return (
             <div id="detail">
                 {audio_data &&
@@ -34,7 +36,7 @@ class Detail extends React.Component {
                             <div className="cover-danmu" onClick={this.handlePlayOrPause}></div>
                             <ProgressBar />
                             <div className="control">
-                                <ControlBar handlePlayOrPause={this.handlePlayOrPause} />
+                                <ControlBar />
                                 <div className="control-info">
                                     <div className="info-name">{audio_data.sound.name}</div>
                                     <div className="info-source">
@@ -101,8 +103,7 @@ class Detail extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            musicJson: null,
-            otherJson: []
+            otherJson: null
         }
     }
     componentDidMount() {
@@ -111,46 +112,39 @@ class Detail extends React.Component {
         this.getOtherData()
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.id !== this.props.id) {
-            this.getDetailData(nextProps.id)
+        console.log('nextProps', nextProps)
+        console.log('this.props', this.props)
+        if (nextProps.match.params.id !== this.props.match.params.id) {
+            this.getDetailData(nextProps.match.params.id)
             this.getOtherData()
+        } else {
+            window.scrollTo(0, 0)
         }
     }
     getDetailData = (id) => {
+        console.log('详情数据')
         window.scrollTo(0, 0)
         getDetail(id).then(res => {
+            // console.log(res)
             if (res.data) {
-                // console.log(res.data)
-                this.setState(() => {
-                    return {
-                        musicJson: res.data
-                    }
-                })
-                this.musicJson = res.data
                 let { audio_ele } = this.props
                 if (audio_ele.src !== res.data.sound.source) {
                     this.props.setAudioData(res.data)
+                    this.props.addPlayList(res.data)
                 }
             }
         })
     }
     getOtherData = () => {
+        console.log('其他数据')
         getOther().then(res => {
+            // console.log(res)
             if (res.data) {
-                this.setState(() => {
-                    return {
-                        otherJson: res.data
-                    }
+                this.setState({
+                    otherJson: res.data
                 })
             }
         })
-    }
-    handlePlayOrPause = () => {
-        if (this.props.audio_ele.paused) {
-            this.props.audio_ele.play()
-        } else {
-            this.props.audio_ele.pause()
-        }
     }
 }
 
@@ -164,6 +158,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         setAudioData: (data) => {
             dispatch(setAudioData(data))
+        },
+        addPlayList: (data) => {
+            dispatch(addPlayList(data))
         }
     }
 }

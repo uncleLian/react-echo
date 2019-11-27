@@ -1,5 +1,5 @@
 import React from 'react'
-import './cover.styl'
+import './index.styl'
 import { Link } from 'react-router-dom'
 
 // 封面信息
