@@ -84,5 +84,40 @@
                 margin-left: auto;
             }
         }
+        .playList-nothing {
+            flex-center();
+            color: $infoColor;
+            font-size: toRem(14);
+            text-align: center;
+            height: toRem(50);
+        }
+    }
+}
+.playModePopup {
+    z-index: 9999 !important;
+    .playMode-container {
+        width: 100%;
+        padding: toRem(8) 0;
+        border-top: 1px solid $borderColor;
+        .playMode-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: toRem(48);
+            padding: 0 toRem(16);
+            color: $lessColor;
+            &.active {
+                color: $appColor;
+            }
+            .item-label {
+                flex: 1;
+                font-size: toRem(14);
+                text-align: left;
+            }
+            .item-icon {
+                font-size: toRem(24);
+                margin-left: auto;
+            }
+        }
     }
 }

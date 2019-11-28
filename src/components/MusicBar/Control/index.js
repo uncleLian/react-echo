@@ -12,16 +12,24 @@ class Control extends React.Component {
                 {/* 播放列表 */}
                 <div className="control-icon my-icon-menu" onClick={this.props.handlePlayList}></div>
                 {/* 播放/暂停 */}
-                <div className={`control-icon control-icon-mid ${audio_play ? "my-icon-pause" : "my-icon-arrow"}`} onClick={this.props.handlePlay} ></div>
+                <div className={`control-icon control-icon-mid ${audio_play ? "my-icon-pause" : "my-icon-arrow"}`} onClick={this.handlePlayOrPause} ></div>
                 {/* 下一首 */}
                 <div className="control-icon my-icon-next" onClick={this.listRepeat} ></div>
             </div>
         )
     }
+    handlePlayOrPause = () => {
+        if (this.props.audio_ele.paused) {
+            this.props.audio_ele.play()
+        } else {
+            this.props.audio_ele.pause()
+        }
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
+        audio_ele: state.audio_ele,
         audio_play: state.audio_play
     }
 }
