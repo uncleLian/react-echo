@@ -124,8 +124,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        setAudioData: (audio) => {
-            dispatch(setAudioData(audio))
+        setAudioData: (data) => {
+            dispatch(setAudioData(data))
         },
         setPlayList: (data) => {
             dispatch(setPlayList(data))

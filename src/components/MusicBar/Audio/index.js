@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from "react-dom"
 import { connect } from 'react-redux'
-import { setAudioData, setAudioEle, setAudioPlay, setAudioProgress } from '@/store/actions'
+import { setAudioData, setAudioEle, setAudioPlay, setAudioProgress, randomPlay, singleRepeat, listRepeat } from '@/store/actions'
 
 // 音乐条
 class AudioContainer extends React.Component {
@@ -59,12 +59,23 @@ class AudioContainer extends React.Component {
     }
     // 处理播放模式
     handlePlayMode = () => {
+        const params = {
+            audio_data: this.props.audio_data,
+            audio_ele: this.audioDOM,
+            playList: this.props.playList
+        }
         switch (this.props.playMode) {
-            case 'random': this.randomPlay()
+            case 'random':
+                console.log('随机播放')
+                this.props.randomPlay(params)
                 break
-            case 'singleRepeat': this.singleRepeat()
+            case 'singleRepeat':
+                console.log('单曲循环')
+                this.props.singleRepeat(params)
                 break
-            case 'listRepeat': this.listRepeat()
+            case 'listRepeat':
+                console.log('列表循环')
+                this.props.listRepeat(params)
                 break
             default:
                 console.log('默认播放模式')
@@ -113,10 +124,10 @@ const mapStateToProps = (state) => {
         playMode: state.playMode
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        setAudioData: (audio) => {
-            dispatch(setAudioData(audio))
+        setAudioData: (data) => {
+            dispatch(setAudioData(data))
         },
         setAudioEle: (data) => {
             dispatch(setAudioEle(data))
@@ -126,6 +137,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         setAudioProgress: (audio) => {
             dispatch(setAudioProgress(audio))
+        },
+        randomPlay: (data) => {
+            dispatch(randomPlay(data))
+        },
+        singleRepeat: (data) => {
+            dispatch(singleRepeat(data))
+        },
+        listRepeat: (data) => {
+            dispatch(listRepeat(data))
         }
     }
 }

@@ -22,3 +22,12 @@ export function deletePlayList(data) {
 export function setPlayMode(data) {
     return { type: 'SET_PLAY_MODE', data }
 }
+export function randomPlay(data) {
+    return { type: 'RANDOM_PLAY', data }
+}
+export function singleRepeat(data) {
+    return { type: 'SINGLE_REPEAT', data }
+}
+export function listRepeat(data) {
+    return { type: 'LIST_REPEAT', data }
+}

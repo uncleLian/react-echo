@@ -4,6 +4,7 @@ import './detail.styl'
 import MusicList from '@/components/MusicList'
 import ControlBar from './ControlBar'
 import ProgressBar from './ProgressBar'
+import Danmu from './Danmu'
 import { getDetail, getOther } from '@/api'
 import { connect } from 'react-redux'
 import { setAudioData, addPlayList } from '@/store/actions.js'
@@ -33,7 +34,8 @@ class Detail extends React.Component {
                         </div>
                         <div className="detail-cover">
                             <img className="cover-img" src={audio_data.sound.pic_500} alt="" />
-                            <div className="cover-danmu" onClick={this.handlePlayOrPause}></div>
+                            <Danmu />
+                            {/* <div className="cover-danmu" onClick={this.handlePlayOrPause}></div> */}
                             <ProgressBar />
                             <div className="control">
                                 <ControlBar />

@@ -1,6 +1,7 @@
 import React from 'react'
 import './index.styl'
 import { connect } from 'react-redux'
+import { listRepeat } from '@/store/actions'
 
 // 按钮
 class Control extends React.Component {
@@ -14,7 +15,7 @@ class Control extends React.Component {
                 {/* 播放/暂停 */}
                 <div className={`control-icon control-icon-mid ${audio_play ? "my-icon-pause" : "my-icon-arrow"}`} onClick={this.handlePlayOrPause} ></div>
                 {/* 下一首 */}
-                <div className="control-icon my-icon-next" onClick={this.listRepeat} ></div>
+                <div className="control-icon my-icon-next" onClick={this.handleNextPlay} ></div>
             </div>
         )
     }
@@ -25,14 +26,37 @@ class Control extends React.Component {
             this.props.audio_ele.pause()
         }
     }
+    handleNextPlay = () => {
+        const params = {
+            audio_data: this.props.audio_data,
+            audio_ele: this.props.audio_ele,
+            playList: this.props.playList
+        }
+        this.props.listRepeat(params)
+    }
+    shouldComponentUpdate(newProps) {
+        if (newProps.audio_play !== this.props.audio_play) {
+            return true
+        }
+        return false
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
+        audio_play: state.audio_play,
+        audio_data: state.audio_data,
         audio_ele: state.audio_ele,
-        audio_play: state.audio_play
+        playList: state.playList
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        listRepeat: (data) => {
+            dispatch(listRepeat(data))
+        }
     }
 }
 
-export default connect(mapStateToProps, {})(Control)
+export default connect(mapStateToProps, mapDispatchToProps)(Control)
 

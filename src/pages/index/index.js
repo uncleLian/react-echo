@@ -4,8 +4,11 @@ import MusicBanner from '@/components/MusicBanner'
 import MusicList from '@/components/MusicList'
 import BottomLoading from '@/components/BottomLoading'
 import { getBanner, getList } from '@/api'
+import { connect } from 'react-redux'
+import { setAudioData, setPlayList, setPlayMode } from '@/store/actions'
+import playMode from '@/utils/playMode'
 
-export default class Index extends React.Component {
+class Index extends React.Component {
     render() {
         console.log('index render')
         return (
@@ -18,11 +21,11 @@ export default class Index extends React.Component {
                     </div>
                     <div className="playAll">
                         <i className="playAll-icon my-icon-arrow"></i>
-                        <div className="playAll-label">一键播放</div>
+                        <div className="playAll-label" onClick={this.handleAllPlay}>一键播放</div>
                     </div>
                     <MusicList json={this.state.listJson} />
                 </div>
-                <BottomLoading loading={this.state.loading}/>
+                <BottomLoading loading={this.state.loading} />
             </div>
         )
     }
@@ -34,6 +37,17 @@ export default class Index extends React.Component {
             page: 1,
             loading: false
         }
+    }
+    shouldComponentUpdate(newProps, nextState) {
+        console.log('nextState', nextState)
+        const isPageChange = nextState.page !== this.state.page
+        const isLoadingChange = nextState.loading !== this.state.loading
+        const isBannerChange = nextState.bannerJson.length !== this.state.bannerJson.length
+        const isListChange = nextState.listJson.length !== this.state.listJson.length
+        if (isPageChange || isLoadingChange || isBannerChange || isListChange) {
+            return true
+        }
+        return false
     }
     componentDidMount() {
         this.getBannerData()
@@ -110,4 +124,39 @@ export default class Index extends React.Component {
             }
         })
     }
+    handleAllPlay = () => {
+        // 设置播放列表
+        this.props.setPlayList(this.state.listJson)
+        // 设置播放模式：列表循环
+        this.props.setPlayMode(playMode.listRepeat.value)
+        // 当前音乐是否等于即将要播放的音乐？重新加载播放 ： 播放即将的音乐
+        if (this.props.audio_data && this.state.listJson[0].sound.id === this.props.audio_data.sound.id) {
+            this.props.audio_ele.load()
+            this.props.audio_ele.play()
+        } else {
+            this.props.setAudioData(this.state.listJson[0])
+        }
+    }
 }
+const mapStateToProps = (state) => {
+    return {
+        audio_data: state.audio_data,
+        audio_ele: state.audio_ele
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setAudioData: (data) => {
+            dispatch(setAudioData(data))
+        },
+        setPlayList: (data) => {
+            dispatch(setPlayList(data))
+        },
+        setPlayMode: (data) => {
+            dispatch(setPlayMode(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

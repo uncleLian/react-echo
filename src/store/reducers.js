@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import cache from '@/utils/cache'
+import { randomPlay, singleRepeat, listRepeat } from '@/utils/playMode'
 
 let defaultState = {
     audio_ele: '',
@@ -6,7 +8,7 @@ let defaultState = {
     audio_play: false,
     audio_progress: 0,
     playList: [],
-    playMode: 'default'
+    playMode: cache.getSession('playMode') || 'default'
 }
 
 let reducers = {
@@ -19,9 +21,19 @@ let reducers = {
         }
     },
     audio_data: (state = defaultState.audio_data, action) => {
+        let res = ''
         switch (action.type) {
             case 'SET_AUDIO_DATA':
                 return action.data
+            case 'RANDOM_PLAY':
+                res = randomPlay(action.data)
+                return res
+            case 'SINGLE_REPEAT':
+                res = singleRepeat(action.data)
+                return res
+            case 'LIST_REPEAT':
+                res = listRepeat(action.data)
+                return res
             default:
                 return state
         }
@@ -43,7 +55,6 @@ let reducers = {
         }
     },
     playList: (state = defaultState.playList, action) => {
-        // console.log('playList state', state)
         switch (action.type) {
             case 'SET_PLAY_LIST':
                 return action.data
@@ -70,11 +81,13 @@ let reducers = {
     playMode: (state = defaultState.playMode, action) => {
         switch (action.type) {
             case 'SET_PLAY_MODE':
+                cache.setSession('playMode', action.data)
                 return action.data
             default:
                 return state
         }
     }
 }
+
 
 export default combineReducers(reducers)
