@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.styl'
+
 import { connect } from 'react-redux'
 
-// 进度条
 class Progress extends React.Component {
     render() {
         const { audio_progress } = this.props
@@ -13,6 +13,7 @@ class Progress extends React.Component {
         )
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         audio_progress: state.audio_progress

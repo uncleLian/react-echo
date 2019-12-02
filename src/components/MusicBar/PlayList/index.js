@@ -1,5 +1,6 @@
 import React from 'react'
 import './index.styl'
+
 import PlayListItem from './PlayListItem'
 import { Modal } from 'antd-mobile'
 import { connect } from 'react-redux'
@@ -8,7 +9,6 @@ import { ArrayOptions, findActiveOption } from '@/utils/playMode'
 
 class playList extends React.Component {
     render() {
-        console.log('playList render')
         let { playList, playMode, handlePlayListOpen, playListVisible } = this.props
         const activePlayMode = findActiveOption(playMode)
         return (
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => {
         playMode: state.playMode
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setAudioData: (data) => {
             dispatch(setAudioData(data))

@@ -1,35 +1,60 @@
-*{
-	box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
-html,body{
+html, body {
     width: 100%;
     min-height: 100%;
-    touch-action: manipulation; /* IE11+ 禁止双击缩放，关于移动端300ms延迟：https://github.com/ftlabs/fastclick */  
+    touch-action: manipulation; // github.com/ftlabs/fastclick *//* IE11+ 禁止双击缩放，关于移动端300ms延迟：https://github.com/ftlabs/fastclick */
     -ms-touch-action: manipulation; /* IE10+ 禁止双击缩放 */
     -webkit-overflow-scrolling: touch; /* ios顺畅滑动 */
 }
-body{
-    font-family: Roboto,Lato,sans-serif;
+body {
+    font-family: Roboto, Lato, sans-serif;
     color: #333;
     background: #f4f5f6;
 }
 /* iconfont */
-[class*=" my-icon-"], [class^=my-icon-] {
-    font-family:"iconfont";
+[class*=' my-icon-'], [class^=my-icon-] {
+    font-family: 'iconfont';
     font-size: inherit;
-    font-style:normal;
+    font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-// 重置mint-ui 样式，适配屏幕大小
-.mint-indicator-wrapper {
-    padding: toRem(15) !important;
-    .mint-spinner-snake {
-        width: toRem(32) !important;
-        height: toRem(32) !important;
+// 适配大于768px的屏幕，采用居中布局。
+// Tip：还需要限制rem最大font-size（/public/statilc/amfe-flexible.js）
+@media screen and (min-width: 768px) {
+    html {
+        width: 768px;
+        margin: auto auto;
+    }
+    #MusicBar {
+        width: 768px;
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
     }
 }
-[class^=mint-spinner-triple-bounce-] {
-    width: toRem(8) !important;
-    height: toRem(8) !important;
+.musicBar-padding {
+    padding-bottom: $musicBarHeight;
+}
+// 重置样式，适配屏幕大小
+.am-toast {
+    font-size: toRem(14) !important;
+    .am-toast-notice-content .am-toast-text.am-toast-text-icon {
+        padding: toRem(15) !important;
+    }
+    .am-toast-notice-content .am-toast-text {
+        min-width: toRem(60) !important;
+    }
+    .am-icon-lg {
+        width: toRem(36) !important;
+        height: toRem(36) !important;
+    }
+    .am-toast-notice-content .am-toast-text.am-toast-text-icon .am-toast-text-info {
+        margin-top: toRem(6) !important;
+    }
+}
+.am-icon {
+    width: toRem(22) !important;
+    height: toRem(22) !important;
 }

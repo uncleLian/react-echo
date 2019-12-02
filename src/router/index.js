@@ -1,22 +1,20 @@
 import React from 'react'
 import './app.styl'
 
-import { HashRouter, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
 // route components
 import index from '@/pages/index/index'
 import detail from '@/pages/detail/detail'
 import MusicBar from '@/components/MusicBar'
 // keep-alive-route
+import { HashRouter, Route } from 'react-router-dom'
 import NotLiveRoute from 'react-live-route'
 import { withRouter } from 'react-router-dom'
 const LiveRoute = withRouter(NotLiveRoute)
 
-class RouteConfig extends React.Component {
+export default class RouteConfig extends React.Component {
     render() {
-        const { audio_data } = this.props
         return (
-            <div id="app" className={audio_data ? 'musicBar-on' : ''}>
+            <div id="app">
                 <HashRouter>
                     <div>
                         <LiveRoute exact path="/" alwaysLive={true} component={index} />
@@ -24,15 +22,7 @@ class RouteConfig extends React.Component {
                         <MusicBar />
                     </div>
                 </HashRouter>
-            </div>
+            </div >
         )
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        audio_data: state.audio_data
-    }
-}
-
-export default connect(mapStateToProps, {})(RouteConfig)

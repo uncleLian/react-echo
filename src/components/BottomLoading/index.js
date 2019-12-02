@@ -1,5 +1,6 @@
 import React from 'react'
 import './index.styl'
+
 import { Icon } from 'antd-mobile'
 
 export default class bottomLoading extends React.Component {

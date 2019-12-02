@@ -1,18 +1,20 @@
 import React from 'react'
 import './index.styl'
+
 import MusicBanner from '@/components/MusicBanner'
 import MusicList from '@/components/MusicList'
 import BottomLoading from '@/components/BottomLoading'
-import { getBanner, getList } from '@/api'
+import playMode from '@/utils/playMode'
+import { Toast } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { setAudioData, setPlayList, setPlayMode } from '@/store/actions'
-import playMode from '@/utils/playMode'
+import { getBanner, getList } from '@/api'
 
 class Index extends React.Component {
     render() {
-        console.log('index render')
+        const { audio_data } = this.props
         return (
-            <div id="index">
+            <div id="index" className={audio_data ? 'musicBar-padding' : ''}>
                 <MusicBanner json={this.state.bannerJson} />
                 {/* 推荐 */}
                 <div className="recommend-container">
@@ -27,6 +29,7 @@ class Index extends React.Component {
                 </div>
                 <BottomLoading loading={this.state.loading} />
             </div>
+
         )
     }
     constructor(props) {
@@ -35,11 +38,11 @@ class Index extends React.Component {
             bannerJson: [],
             listJson: [],
             page: 1,
-            loading: false
+            loading: false,
+            lock: false
         }
     }
     shouldComponentUpdate(newProps, nextState) {
-        console.log('nextState', nextState)
         const isPageChange = nextState.page !== this.state.page
         const isLoadingChange = nextState.loading !== this.state.loading
         const isBannerChange = nextState.bannerJson.length !== this.state.bannerJson.length
@@ -52,12 +55,7 @@ class Index extends React.Component {
     componentDidMount() {
         this.getBannerData()
         this.getListData()
-        this.lock = false
-        window.addEventListener('scroll', this.onScroll)
-    }
-    componentWillUnmount() {
-        this.lock = true
-        window.removeEventListener('scroll', this.onScroll)
+        this.handleLockScroll()
     }
     getBannerData = () => {
         getBanner().then(res => {
@@ -69,11 +67,13 @@ class Index extends React.Component {
         })
     }
     getListData = () => {
+        Toast.loading('Loading', 0)
         getList(this.state.page).then(res => {
             this.setState({
                 listJson: res.data,
                 page: 2
             })
+            Toast.hide()
         }).catch(err => {
             console.log(err)
         })
@@ -85,6 +85,7 @@ class Index extends React.Component {
                 lock: true
             })
             getList(this.state.page).then(res => {
+                // console.log(res)
                 if (res.data && res.data.length > 0) {
                     this.setState(prevState => ({
                         listJson: prevState.listJson.concat(res.data),
@@ -97,6 +98,7 @@ class Index extends React.Component {
                         loading: 'nothing',
                         lock: true
                     })
+                    window.removeEventListener('scroll', this.onScroll)
                 }
             }).catch(() => {
                 this.setState({
@@ -105,24 +107,6 @@ class Index extends React.Component {
                 })
             })
         }
-    }
-    onScroll = () => {
-        // 利用requestAnimationFrame保证流畅性和精准度，相对于setTimeout执行次数会增多
-        requestAnimationFrame(() => {
-            // 滚动高度
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-            // 窗口高度
-            let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-            // 文档高度
-            let documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
-            // 距离
-            let distance = 10
-            // this.$toast(`滚动高度：${scrollTop}, 窗口高度：${windowHeight}, 文档高度：${documentHeight}, `)
-            let isBottom = scrollTop + windowHeight + distance >= documentHeight
-            if (isBottom && !this.lock) {
-                this.getListMoreData()
-            }
-        })
     }
     handleAllPlay = () => {
         // 设置播放列表
@@ -137,14 +121,43 @@ class Index extends React.Component {
             this.props.setAudioData(this.state.listJson[0])
         }
     }
-}
-const mapStateToProps = (state) => {
-    return {
-        audio_data: state.audio_data,
-        audio_ele: state.audio_ele
+    onScroll = () => {
+        // 利用requestAnimationFrame保证流畅性和精准度，相对于setTimeout执行次数会增多
+        requestAnimationFrame(() => {
+            // 滚动高度
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            // 窗口高度
+            let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+            // 文档高度
+            let documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
+            // 距离
+            let distance = 10
+            let isBottom = scrollTop + windowHeight + distance >= documentHeight
+            if (isBottom && !this.state.lock) {
+                this.getListMoreData()
+            }
+        })
+    }
+    handleLockScroll = () => {
+        window.addEventListener('scroll', this.onScroll)
+        this.props.history.listen((location) => {
+            if (location.pathname === '/') {
+                if (this.state.loading !== 'nothing') {
+                    window.addEventListener('scroll', this.onScroll)
+                }
+            } else {
+                window.removeEventListener('scroll', this.onScroll)
+            }
+        })
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        audio_ele: state.audio_ele,
+        audio_data: state.audio_data
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         setAudioData: (data) => {

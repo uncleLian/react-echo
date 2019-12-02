@@ -1,4 +1,4 @@
-// 时间处理
+// 时间处理（秒转为00:00格式）
 export const sec2his = (t) => {
     if (~~t || t < 1) {
         var tt = Math.round(t)
@@ -11,7 +11,7 @@ export const sec2his = (t) => {
         return '00:00'
     }
 }
-// 热度处理
+// 热度处理（根据值转对应icon）
 export const hotClass = (hot) => {
     switch (hot) {
         case 1: return 'fire-red'

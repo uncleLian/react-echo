@@ -1,5 +1,6 @@
 import React from 'react'
 import './index.styl'
+
 import { sec2his } from '@/utils/filter'
 import { connect } from 'react-redux'
 import { setAudioEle } from '@/store/actions.js'
@@ -21,7 +22,7 @@ class ProgressBar extends React.Component {
     // 调节进度条
     handleSeek = (e) => {
         e = e || window.event
-        let percent = (e.pageX / window.innerWidth).toFixed(2)
+        let percent = (e.pageX / window.innerWidth).toFixed(2) // 百分比（前两位小数）
         let audio_ele = this.props.audio_ele
         audio_ele.currentTime = audio_ele.duration * percent
     }
@@ -33,7 +34,7 @@ const mapStateToProps = (state) => {
         audio_progress: state.audio_progress
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setAudioEle: (data) => {
             dispatch(setAudioEle(data))

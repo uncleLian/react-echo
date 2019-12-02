@@ -1,19 +1,15 @@
 import React from 'react'
 import './index.styl'
+
 import { connect } from 'react-redux'
+import { audioPlayOrPause } from '@/utils/audio'
 
 class ControlBar extends React.Component {
     render() {
+        const { audio_ele, audio_play } = this.props
         return (
-            <div className={`control-playBtn ${this.props.audio_play ? 'pause' : 'play'}`} onClick={this.handlePlayOrPause} />
+            <div className={`control-playBtn ${audio_play ? 'pause' : 'play'}`} onClick={() => audioPlayOrPause(audio_ele)} />
         )
-    }
-    handlePlayOrPause = () => {
-        if (this.props.audio_ele.paused) {
-            this.props.audio_ele.play()
-        } else {
-            this.props.audio_ele.pause()
-        }
     }
 }
 

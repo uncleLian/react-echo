@@ -1,20 +1,17 @@
 import React from 'react'
+
 import { connect } from 'react-redux'
+import { audioPlayOrPause } from '@/utils/audio'
 
 class Danmu extends React.Component {
     render() {
+        const { audio_ele } = this.props
         return (
-            <div className="cover-danmu" onClick={this.handlePlayOrPause}></div>
+            <div className="cover-danmu" onClick={() => audioPlayOrPause(audio_ele)}></div>
         )
     }
-    handlePlayOrPause = () => {
-        if (this.props.audio_ele.paused) {
-            this.props.audio_ele.play()
-        } else {
-            this.props.audio_ele.pause()
-        }
-    }
 }
+
 const mapStateToProps = (state) => {
     return {
         audio_ele: state.audio_ele

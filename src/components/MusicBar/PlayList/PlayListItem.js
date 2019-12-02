@@ -5,16 +5,14 @@ import { withRouter } from 'react-router-dom'
 
 class playListItem extends React.Component {
     render() {
-        const { audio_data } = this.props
-        const item = this.props.json
-        console.log('playListItem render')
+        const { json, audio_data } = this.props
         return (
-            <li className={`playList-item ${audio_data.sound.id === item.sound.id ? 'playing' : ''}`} key={item.sound.id} onClick={this.handlePlay}>
+            <li className={`playList-item ${audio_data.sound.id === json.sound.id ? 'playing' : ''}`} key={json.sound.id} onClick={this.handlePlay}>
                 <div className="item-name">
                     <div className="name-icon-container">
-                        <div className={`name-icon ${audio_data.sound.id === item.sound.id ? 'my-icon-circle-play' : 'smallCircle'}`}></div>
+                        <div className={`name-icon ${audio_data.sound.id === json.sound.id ? 'my-icon-circle-play' : 'smallCircle'}`}></div>
                     </div>
-                    <div className={`name-value ${audio_data.sound.id === item.sound.id ? 'onPlay' : ''}`}>{item.sound.name}</div>
+                    <div className={`name-value ${audio_data.sound.id === json.sound.id ? 'onPlay' : ''}`}>{json.sound.name}</div>
                 </div>
                 <div className="item-close my-icon-close" onClick={this.handleDelete}></div>
             </li>
@@ -42,7 +40,7 @@ const mapStateToProps = (state) => {
         audio_data: state.audio_data
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         deletePlayList: (data) => {
             dispatch(deletePlayList(data))

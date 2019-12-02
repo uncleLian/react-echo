@@ -8,9 +8,8 @@ import { Modal } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-class barContainer extends React.PureComponent {
+class barContainer extends React.Component {
     render() {
-        console.log('barContainer render')
         let { audio_data } = this.props
         return (
             <React.Fragment>
@@ -18,7 +17,7 @@ class barContainer extends React.PureComponent {
                     <div className="bar-container">
                         <div className="bar-info">
                             <Cover audio_data={audio_data} />
-                            <Control handlePlayList={this.handlePlayListOpen} />
+                            <Control handlePlayListOpen={this.handlePlayListOpen} />
                         </div>
                         <Progress />
                         <Modal popup animationType="slide-up" visible={this.state.playListVisible} onClose={this.handlePlayListOpen}>
