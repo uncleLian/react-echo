@@ -32,7 +32,7 @@
 
 [在线链接](https://unclelian.github.io/react-echo/)（请使用手机模式预览）
 
-<img src="https://github.com/uncleLian/react-echo/raw/gh-pages/screenshots/echo_QRcode.png" width="250" height="250"/>
+<img src="https://unclelian.github.io/react-echo/screenshots/echo_QRcode.png" width="250" height="250"/>
 
 ## 功能
 
@@ -43,9 +43,11 @@
 
 ## 项目截图
 
-![image](https://github.com/uncleLian/react-echo/raw/gh-pages/screenshots/echo_index.png)
+![image](https://unclelian.github.io/react-echo/screenshots/echo_index.png)
 
-![image](https://github.com/uncleLian/react-echo/raw/gh-pages/screenshots/echo_detail.png)
+![image](https://unclelian.github.io/react-echo/screenshots/echo_detail.png)
+
+![image](https://unclelian.github.io/react-echo/screenshots/echo_mode.png)
 
 ## 目录结构
 
@@ -84,3 +86,9 @@ npm run build
 
 ## 更新日志
 [发行说明](https://github.com/uncleLian/react-echo/releases)中记录了每个版本的详细更改。
+
+## License
+
+[MIT](https://github.com/uncleLian/react-echo/blob/master/LICENSE)
+
+Copyright (c) 2019-present，uncleLian
