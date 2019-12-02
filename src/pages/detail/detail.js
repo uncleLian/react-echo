@@ -9,6 +9,7 @@ import { Toast } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { setAudioData, addPlayList } from '@/store/actions.js'
 import { getDetail, getOther } from '@/api'
+const vipIcon = require('@/assets/img/vip.png')
 
 class Detail extends React.Component {
     render() {
@@ -22,7 +23,9 @@ class Detail extends React.Component {
                                 <div className="author-left">
                                     <div className="author-avatar">
                                         <img className="author-img" src={audio_data.sound.user.avatar_50} alt="" />
-                                        <img className='author-vip' src={'~@/assets/img/vip.png'} alt="" />
+                                        {audio_data.sound.user.famous_type &&
+                                            <img className='author-vip' src={vipIcon} alt="" />
+                                        }
                                     </div>
                                     <div className="author-name">{audio_data.sound.user.name}</div>
                                 </div>
