@@ -32,7 +32,7 @@ class Control extends React.Component {
             audio_data: this.props.audio_data,
             playList: this.props.playList
         }
-        this.props.nextAudio(params)
+        this.props.listRepeat(params)
     }
 }
 
@@ -46,7 +46,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        nextAudio: (data) => {
+        listRepeat: (data) => {
             dispatch(listRepeat(data))
         }
     }

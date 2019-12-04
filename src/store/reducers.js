@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import cache from '@/utils/cache'
 import { randomPlay, singleRepeat, listRepeat } from '@/utils/playMode'
+import { audioSetRoute } from '@/utils/audio'
 
 let defaultState = {
     audio_ele: '',
@@ -24,15 +25,19 @@ let reducers = {
         let res = ''
         switch (action.type) {
             case 'SET_AUDIO_DATA':
+                audioSetRoute(action.data)
                 return action.data
             case 'RANDOM_PLAY':
                 res = randomPlay(action.data)
+                audioSetRoute(res)
                 return res
             case 'SINGLE_REPEAT':
                 res = singleRepeat(action.data)
+                audioSetRoute(res)
                 return res
             case 'LIST_REPEAT':
                 res = listRepeat(action.data)
+                audioSetRoute(res)
                 return res
             default:
                 return state

@@ -2,7 +2,6 @@ import React from 'react'
 
 import Cover from '../Cover'
 import Control from '../Control'
-import Progress from '../Progress'
 import PlayList from '../PlayList'
 import { Modal } from 'antd-mobile'
 import { connect } from 'react-redux'
@@ -19,7 +18,6 @@ class barContainer extends React.Component {
                             <Cover audio_data={audio_data} />
                             <Control handlePlayListOpen={this.handlePlayListOpen} />
                         </div>
-                        <Progress />
                         <Modal popup animationType="slide-up" visible={this.state.playListVisible} onClose={this.handlePlayListOpen}>
                             <PlayList handlePlayListOpen={this.handlePlayListOpen} playListVisible={this.state.playListVisible} />
                         </Modal >

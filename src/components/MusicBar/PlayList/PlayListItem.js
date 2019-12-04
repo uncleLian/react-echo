@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setAudioData, deletePlayList } from '@/store/actions'
-import { withRouter } from 'react-router-dom'
 
 class playListItem extends React.Component {
     render() {
@@ -20,13 +19,8 @@ class playListItem extends React.Component {
     }
     handlePlay = () => {
         const item = this.props.json
-        // 判断当前是在/detail页，则使用链接跳转，否则只切换音乐数据
-        if (this.props.history.location.pathname.includes('/detail/')) {
-            this.props.history.push(`/detail/${item.sound.id}`)
-        } else {
-            this.props.setAudioData(item)
-            this.props.handlePlayListOpen()
-        }
+        this.props.setAudioData(item)
+        this.props.handlePlayListOpen()
     }
     handleDelete = (e) => {
         e.stopPropagation()
@@ -51,4 +45,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(playListItem))
+export default connect(mapStateToProps, mapDispatchToProps)(playListItem)
