@@ -30,7 +30,7 @@
 
 ## 效果演示 
 
-[在线链接](react-echo.liansixin.win)（请使用手机模式预览）
+[在线链接](http://react-echo.liansixin.win/)（请使用手机模式预览）
 
 <img src="https://unclelian.github.io/react-echo/screenshots/echo_QRcode.png" width="250" height="250"/>
 
